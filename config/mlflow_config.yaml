@@ -1,0 +1,18 @@
+# MLflow configuration
+mlflow:
+  tracking_uri: "sqlite:///mlflow.db"
+  experiment_name: "fraud_detection"
+  registry_uri: "sqlite:///mlflow.db"
+  
+experiments:
+  default:
+    name: "fraud_detection_experiment"
+    description: "Fraud detection model experiments"
+    
+models:
+  xgboost:
+    name: "xgboost_fraud_detector"
+    description: "XGBoost model for fraud detection"
+  neural_network:
+    name: "neural_network_fraud_detector" 
+    description: "Neural network model for fraud detection"

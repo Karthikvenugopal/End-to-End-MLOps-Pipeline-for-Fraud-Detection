@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  fraud-detection-api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+      - MODEL_PATH=/app/models
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+    restart: unless-stopped
+    
+  mlflow:
+    image: python:3.9-slim
+    ports:
+      - "5000:5000"
+    command: >
+      bash -c "pip install mlflow && 
+               mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./mlruns --host 0.0.0.0"
+    volumes:
+      - ./mlflow:/mlflow
+    working_dir: /mlflow
+    restart: unless-stopped
